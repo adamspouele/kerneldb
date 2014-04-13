@@ -2,6 +2,9 @@
 /stamp-h1
 Makefile
 /config.log
+/config.h
+/config.status
+/libtool
 *~
 *.o
 *.lo
@@ -10,3 +13,5 @@ Makefile
 *.a
 .deps
 *.tar*
+.dirstamp
+kerneldb

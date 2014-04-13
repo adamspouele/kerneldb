@@ -17,7 +17,7 @@ Supported Operators
 
 * *Get(key):* Returns object
 * *Scan(key):* Forward and reverse iteration over keys in lexicographic order
-* *Merge(key):* Atomic Read-Modify-Write operations defiend by __user supplied kernels!__
+* *Merge(key):* Atomic Read-Modify-Write operations defined by __user supplied kernels!__
 * *Put(key):* Adds/overwrites the value of an object
 * *Delete(key):* Removes object from store
 

@@ -15270,7 +15270,7 @@ $as_echo_n "checking standard libv8 install locations... " >&6; }
 $as_echo "$with_libv8" >&6; }
 fi
 
-CPPFLAGS="$CPPFLAGS -I$with_libv8"
+CPPFLAGS="$CPPFLAGS -I$with_libv8/include"
 LDFLAGS="$LDFLAGS -L$with_libv8/lib -lv8"
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for libv8" >&5
@@ -15278,10 +15278,10 @@ $as_echo_n "checking for libv8... " >&6; }
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
-//#include <v8.h>
+#include <v8.h>
 int main(int argc, char **argv)
 {
-	//v8::Isolate* isolate = v8::Isolate::GetCurrent();
+	v8::Isolate* isolate = v8::Isolate::GetCurrent();
 	return 0;
 }
 _ACEOF

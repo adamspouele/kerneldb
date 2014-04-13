@@ -61,15 +61,15 @@ if test "$with_libv8" == ""; then
 	AC_MSG_RESULT([$with_libv8])
 fi
 
-CPPFLAGS="$CPPFLAGS -I$with_libv8"
+CPPFLAGS="$CPPFLAGS -I$with_libv8/include"
 LDFLAGS="$LDFLAGS -L$with_libv8/lib -lv8"
 
 AC_MSG_CHECKING([for libv8])
 AC_COMPILE_IFELSE([AC_LANG_SOURCE[
-//#include <v8.h>
+#include <v8.h>
 int main(int argc, char **argv)
 {
-	//v8::Isolate* isolate = v8::Isolate::GetCurrent();
+	v8::Isolate* isolate = v8::Isolate::GetCurrent();
 	return 0;
 }]], [
 		AC_MSG_RESULT([yes])

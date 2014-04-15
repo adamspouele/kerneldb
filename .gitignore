@@ -14,4 +14,4 @@ Makefile
 .deps
 *.tar*
 .dirstamp
-kerneldb
+/kerneldb

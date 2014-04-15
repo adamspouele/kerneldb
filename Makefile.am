@@ -6,7 +6,7 @@ AM_CPPFLAGS = -I$(srcdir)/src
 
 bin_PROGRAMS = kerneldb
 
-kerneldb_SOURCES = src/main.cpp
+kerneldb_SOURCES = src/main.cpp src/isolated.cpp src/v8merge.cpp
 
 
 

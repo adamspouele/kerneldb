@@ -72,7 +72,8 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_kerneldb_OBJECTS = src/main.$(OBJEXT)
+am_kerneldb_OBJECTS = src/main.$(OBJEXT) src/isolated.$(OBJEXT) \
+	src/v8merge.$(OBJEXT)
 kerneldb_OBJECTS = $(am_kerneldb_OBJECTS)
 kerneldb_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@
@@ -237,7 +238,7 @@ top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = subdir-objects
 ACLOCAL_AMFLAGS = -I m4
 AM_CPPFLAGS = -I$(srcdir)/src
-kerneldb_SOURCES = src/main.cpp
+kerneldb_SOURCES = src/main.cpp src/isolated.cpp src/v8merge.cpp
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -345,6 +346,10 @@ src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
 src/main.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/isolated.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/v8merge.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 kerneldb$(EXEEXT): $(kerneldb_OBJECTS) $(kerneldb_DEPENDENCIES) $(EXTRA_kerneldb_DEPENDENCIES) 
 	@rm -f kerneldb$(EXEEXT)
 	$(CXXLINK) $(kerneldb_OBJECTS) $(kerneldb_LDADD) $(LIBS)
@@ -356,7 +361,9 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/isolated.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/v8merge.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\

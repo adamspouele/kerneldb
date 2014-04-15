@@ -15101,6 +15101,7 @@ $as_echo "no" >&6; }
 fi
 
 
+
 for ac_header in stdlib.h
 do :
   ac_fn_cxx_check_header_mongrel "$LINENO" "stdlib.h" "ac_cv_header_stdlib_h" "$ac_includes_default"
@@ -15178,6 +15179,11 @@ CXXFLAGS="$CXXFLAGS -std=c++11"
 
 cat >>confdefs.h <<_ACEOF
 #define SYSCONFDIR_PATH "$(eval echo "$sysconfdir")/kerneldb"
+_ACEOF
+
+
+cat >>confdefs.h <<_ACEOF
+#define LOCALSTATEDIR_PATH "$(eval echo "$localstatedir")/kerneldb"
 _ACEOF
 
 

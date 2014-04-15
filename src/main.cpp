@@ -29,7 +29,7 @@ int main(int argc, const char* const argv[]) {
 	
 	// rocksdb db
 	rocksdb::DB* db;
-	rocksdb::Status status = rocksdb::DB::Open(options, "/tmp/testdb", &db);
+	rocksdb::Status status = rocksdb::DB::Open(options, string(LOCALSTATEDIR_PATH)+"/meta", &db);
 	
 	rocksdb::Status s;
 	

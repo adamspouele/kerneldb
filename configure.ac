@@ -16,6 +16,7 @@ AC_PROG_LIBTOOL
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
+AC_PROG_MKDIR_P
 AC_FUNC_REALLOC
 LT_INIT
 
@@ -25,6 +26,7 @@ CXXFLAGS="$CXXFLAGS -std=c++11"
 
 
 AC_DEFINE_UNQUOTED([SYSCONFDIR_PATH], "$(eval echo "$sysconfdir")/kerneldb",[Path to configuration files])
+AC_DEFINE_UNQUOTED([LOCALSTATEDIR_PATH], "$(eval echo "$localstatedir")/kerneldb",[Path where to store database])
 AC_DEFINE_UNQUOTED([KERNELS_PATH], "$(eval echo "$sysconfdir")/kerneldb/kernels",[Path to kernels])
 
 

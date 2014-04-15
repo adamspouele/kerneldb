@@ -40,6 +40,9 @@
 /* Path to kernels */
 #undef KERNELS_PATH
 
+/* Path where to store database */
+#undef LOCALSTATEDIR_PATH
+
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
 #undef LT_OBJDIR

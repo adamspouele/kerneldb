@@ -1,6 +1,5 @@
 
-#include "kerneldb/isolated.h"
-#include "kerneldb/kmerge.h"
+#include "kerneldb/kerneldb.h"
 
 #include <iostream>
 
@@ -15,28 +14,12 @@ using namespace v8;
 
 int main(int argc, const char* const argv[]) {
 	Isolated::create();
-	
-	Isolated isolated;
-	
-	/*const char* kernel = R"(
-		({
-			"merge": function(key, old, value) {
-				return (old||0) + value;
-				
-				//if (typeof value == "string")
-				//	eval("var value = " + value);
-			
-				//if (value instanceof Function)
-				//	return value(old);
-				//else
-				//	return value;
-				
-			},
-			"partialMerge": function(key, left, right) {
-				return left + right;
-			}
-		});
-	)";*/
+
+	auto kernel_files = kernels_list();
+	cout << "kernels: " << kernel_files.size() << endl;
+	for (auto& str : kernel_files) {
+		cout << str << endl;
+	}
 	
 	const char* kernel = R"(
 		({

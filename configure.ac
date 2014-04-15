@@ -24,6 +24,9 @@ LT_INIT
 CXXFLAGS="$CXXFLAGS -std=c++11"
 
 
+KERNELS_PATH="$(eval echo "$sysconfdir")/kerneldb/kernels"
+AC_DEFINE_UNQUOTED([KERNELS_PATH], "${KERNELS_PATH}",[Path to kernels])
+
 ########################################################################################################################
 ##  librocksdb
 ##

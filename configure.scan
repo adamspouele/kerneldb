@@ -19,13 +19,17 @@ AC_PROG_RANLIB
 # Checks for libraries.
 
 # Checks for header files.
+AC_CHECK_HEADERS([fcntl.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
+AC_TYPE_SSIZE_T
 
 # Checks for library functions.
+AC_CHECK_FUNCS([strerror])
 
 AC_CONFIG_FILES([Makefile
+                 config/Makefile
                  src/Makefile
                  src/kerneldb/Makefile])
 AC_OUTPUT

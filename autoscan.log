@@ -1,14 +1,2 @@
-autoscan: warning: missing AC_CHECK_HEADER_STDBOOL wanted by: 
-	src/kerneldb/v8merge.cpp:43
-	src/kerneldb/v8merge.cpp:81
-	src/kerneldb/v8merge.h:26
-	src/kerneldb/v8merge.h:35
-	src/kerneldb/v8merge.h:43
-	src/kerneldb/v8merge.cpp:91
-	src/kerneldb/v8merge.cpp:93
-	src/main.cpp:66
-	src/kerneldb/v8merge.cpp:51
-	src/kerneldb/v8merge.cpp:78
-	src/kerneldb/v8merge.cpp:108
 autoscan: warning: missing AC_PROG_RANLIB wanted by: 
 	ltmain.sh:2455

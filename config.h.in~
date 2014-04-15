@@ -3,6 +3,9 @@
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
+/* Define to 1 if you have the <fcntl.h> header file. */
+#undef HAVE_FCNTL_H
+
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
@@ -22,6 +25,9 @@
 /* Define to 1 if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H
 
+/* Define to 1 if you have the `strerror' function. */
+#undef HAVE_STRERROR
+
 /* Define to 1 if you have the <strings.h> header file. */
 #undef HAVE_STRINGS_H
 
@@ -37,8 +43,14 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
+/* Define to 1 if the system has the type `_Bool'. */
+#undef HAVE__BOOL
+
 /* Path to kernels */
 #undef KERNELS_PATH
+
+/* Path where to store database */
+#undef LOCALSTATEDIR_PATH
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
@@ -76,3 +88,6 @@
 
 /* Define to rpl_realloc if the replacement function should be used. */
 #undef realloc
+
+/* Define to `int' if <sys/types.h> does not define. */
+#undef ssize_t

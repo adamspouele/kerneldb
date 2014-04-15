@@ -15175,11 +15175,16 @@ fi
 CXXFLAGS="$CXXFLAGS -std=c++11"
 
 
-KERNELS_PATH="$(eval echo "$sysconfdir")/kerneldb/kernels"
 
 cat >>confdefs.h <<_ACEOF
-#define KERNELS_PATH "${KERNELS_PATH}"
+#define SYSCONFDIR_PATH "$(eval echo "$sysconfdir")/kerneldb"
 _ACEOF
+
+
+cat >>confdefs.h <<_ACEOF
+#define KERNELS_PATH "$(eval echo "$sysconfdir")/kerneldb/kernels"
+_ACEOF
+
 
 
 ########################################################################################################################
@@ -15322,7 +15327,7 @@ done
 
 
 
-ac_config_files="$ac_config_files Makefile src/Makefile src/kerneldb/Makefile"
+ac_config_files="$ac_config_files Makefile config/Makefile src/Makefile src/kerneldb/Makefile"
 
 
 
@@ -16435,6 +16440,7 @@ do
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "config/Makefile") CONFIG_FILES="$CONFIG_FILES config/Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "src/kerneldb/Makefile") CONFIG_FILES="$CONFIG_FILES src/kerneldb/Makefile" ;;
 

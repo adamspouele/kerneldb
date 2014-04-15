@@ -8,6 +8,8 @@
 
 #include <v8.h>
 
+#include "config.h"
+
 using namespace std;
 using namespace v8;
 
@@ -15,38 +17,15 @@ using namespace v8;
 int main(int argc, const char* const argv[]) {
 	Isolated::create();
 
-	auto kernel_files = kernels_list();
-	cout << "kernels: " << kernel_files.size() << endl;
-	for (auto& str : kernel_files) {
-		cout << str << endl;
-	}
+	KernelDBConfig config = KernelDBConfig::Defaults();
+	auto kernels = KernelDBConfig::Kernels();
 	
-	const char* kernel = R"(
-		({
-			"name": "Counter",
-			"author": "subprotocol",
-			"description": "Increments old value by new value",
-			"merge": function(key, old, value) {
-				return (old||0) + value;
-			},
-			"partialMerge": function(key, left, right) {
-				return left + right;
-			}
-		});
-	)";
+	// TODO: add kernel validation
 	
-	/*const char* kernel = R"(
-		({
-			"merge": function(key, old, value) {
-				return (old||0) + value;
-			}
-		});
-	)";*/
 	
 	// rocksdb options
-	rocksdb::Options options;
-	options.merge_operator.reset(new KMergeOperator(kernel));
-	options.create_if_missing = true;
+	rocksdb::Options options = config.options();
+	options.merge_operator.reset(new KMergeOperator(kernels["counter.js"]));
 	
 	// rocksdb db
 	rocksdb::DB* db;

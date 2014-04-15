@@ -24,8 +24,9 @@ LT_INIT
 CXXFLAGS="$CXXFLAGS -std=c++11"
 
 
-KERNELS_PATH="$(eval echo "$sysconfdir")/kerneldb/kernels"
-AC_DEFINE_UNQUOTED([KERNELS_PATH], "${KERNELS_PATH}",[Path to kernels])
+AC_DEFINE_UNQUOTED([SYSCONFDIR_PATH], "$(eval echo "$sysconfdir")/kerneldb",[Path to configuration files])
+AC_DEFINE_UNQUOTED([KERNELS_PATH], "$(eval echo "$sysconfdir")/kerneldb/kernels",[Path to kernels])
+
 
 ########################################################################################################################
 ##  librocksdb
@@ -88,6 +89,7 @@ AC_CHECK_HEADERS([])
 
 AC_CONFIG_FILES([
 					Makefile
+					config/Makefile
 					src/Makefile
 					src/kerneldb/Makefile
 				])

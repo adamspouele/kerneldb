@@ -83,7 +83,10 @@ int main(int argc, char **argv)
 AC_CHECK_HEADERS([])
 
 
-AC_CONFIG_FILES([Makefile
+AC_CONFIG_FILES([
+					Makefile
+					src/Makefile
+					src/kerneldb/Makefile
 				])
 
 

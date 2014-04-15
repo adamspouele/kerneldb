@@ -21,8 +21,11 @@ AC_PROG_RANLIB
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
+AC_CHECK_HEADER_STDBOOL
 
 # Checks for library functions.
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile
+                 src/Makefile
+                 src/kerneldb/Makefile])
 AC_OUTPUT

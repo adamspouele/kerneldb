@@ -1,6 +1,6 @@
 
-#include "isolated.h"
-#include "v8merge.h"
+#include "kerneldb/isolated.h"
+#include "kerneldb/kmerge.h"
 
 #include <iostream>
 
@@ -41,7 +41,8 @@ int main(int argc, const char* const argv[]) {
 	const char* kernel = R"(
 		({
 			"name": "Counter",
-			"author": "Subprotocol",
+			"author": "subprotocol",
+			"description": "Increments old value by new value",
 			"merge": function(key, old, value) {
 				return (old||0) + value;
 			},
@@ -61,7 +62,7 @@ int main(int argc, const char* const argv[]) {
 	
 	// rocksdb options
 	rocksdb::Options options;
-	options.merge_operator.reset(new V8MergeOperator(kernel));
+	options.merge_operator.reset(new KMergeOperator(kernel));
 	options.create_if_missing = true;
 	
 	// rocksdb db

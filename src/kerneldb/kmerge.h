@@ -5,6 +5,7 @@
 #include "isolated.h"
 
 #include <rocksdb/db.h>
+#include <rocksdb/env.h>
 #include <rocksdb/merge_operator.h>
 
 #include <v8.h>

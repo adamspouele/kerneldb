@@ -1,10 +1,11 @@
 
 #include "kmerge.h"
 
-
 using namespace std;
 using namespace v8;
 
+
+void logMessage(const v8::FunctionCallbackInfo<v8::Value>& args);
 
 KernelInstance::KernelInstance(const std::string& kernelScript) {
 	Handle<Script> script = Script::Compile(String::NewFromUtf8(isolated->isolate, kernelScript.c_str()));
@@ -38,7 +39,7 @@ bool KMergeOperator::FullMerge(
 ) const {
 	
 	// this method should always return true unless there is some sort of unrecoverable error when processing data
-	
+
 	KernelInstance* ki = kernel();
 	
 	// get existing value, otherwise set to null
@@ -55,10 +56,11 @@ bool KMergeOperator::FullMerge(
 			k // key
 			, ev // existing value
 			, ki->isolated->jsonParse(operand.data()) // operand to apply
+			, FunctionTemplate::New(logMessage, External::New(logger))->GetFunction()
 		};
 		
 		// call merge func
-		ev = ki->mergeFunc->Call(ki->isolated->context->Global(), 3, args);
+		ev = ki->mergeFunc->Call(ki->isolated->context->Global(), 4, args);
 	}
 	
 	// save value
@@ -86,10 +88,11 @@ bool KMergeOperator::PartialMerge(
 		String::NewFromUtf8(ki->isolated->isolate, key.data()) // key
 		, ki->isolated->jsonParse(left.data()) // left
 		, ki->isolated->jsonParse(right.data()) // right
+		, FunctionTemplate::New(logMessage, External::New(logger))->GetFunction()
 	};
 	
 	// call partial merge func
-	Handle<Value> r = ki->partialMergeFunc->Call(ki->isolated->context->Global(), 3, args);
+	Handle<Value> r = ki->partialMergeFunc->Call(ki->isolated->context->Global(), 4, args);
 	
 	// save value
 	*new_value = *String::Utf8Value(ki->isolated->jsonStringify(r));
@@ -110,4 +113,11 @@ KernelInstance* KMergeOperator::kernel() const {
 	
 	return ki;
 }
+
+void logMessage(const v8::FunctionCallbackInfo<v8::Value>& args) {
+	rocksdb::Logger* logger = reinterpret_cast<rocksdb::Logger*>(Handle<External>::Cast(args.Data())->Value());
+	String::Utf8Value utf(args[0]->ToString());
+	Log(logger, "Kernel: %s\n",*utf);
+}
+
 

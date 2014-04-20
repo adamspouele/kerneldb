@@ -46,7 +46,7 @@ bool KMergeOperator::FullMerge(
 	Handle<Value> ev = existing_value ? ki->isolated->jsonParse(existing_value->data()) : Handle<Value>::Cast(Null(ki->isolated->isolate));
 	
 	// key wrapper
-	Handle<String> k(String::NewFromUtf8(ki->isolated->isolate, key.data()));
+	Handle<String> k(String::NewFromUtf8(ki->isolated->isolate, key.data(), String::kNormalString, key.size()));
 	
 	// apply each operand
 	for (const auto& operand : operands) {
@@ -85,7 +85,7 @@ bool KMergeOperator::PartialMerge(
 	
 	// arguments list
 	Handle<Value> args[] = {
-		String::NewFromUtf8(ki->isolated->isolate, key.data()) // key
+		String::NewFromUtf8(ki->isolated->isolate, key.data(), String::kNormalString, key.size()) // key
 		, ki->isolated->jsonParse(left.data()) // left
 		, ki->isolated->jsonParse(right.data()) // right
 		, FunctionTemplate::New(logMessage, External::New(logger))->GetFunction()

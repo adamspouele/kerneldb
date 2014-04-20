@@ -220,13 +220,15 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 kerneldbdir = $(sysconfdir)/kerneldb
 kerneldb_DATA = \
-	kerneldb.json
+	kerneldb.json \
+	defaults.json
 
 kernelsdir = $(kerneldbdir)/kernels
 kernels_DATA = \
 	kernels/counter.js  \
 	kernels/executor.js \
-	kernels/list.js
+	kernels/list.js     \
+	kernels/put.js
 
 all: all-am
 
@@ -470,7 +472,6 @@ uninstall-am: uninstall-kerneldbDATA uninstall-kernelsDATA
 
 
 install-data-local:
-	$(MKDIR_P) $(localstatedir)/kerneldb/meta
 	$(MKDIR_P) $(localstatedir)/kerneldb/stores
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

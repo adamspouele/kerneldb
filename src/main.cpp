@@ -17,38 +17,40 @@ using namespace v8;
 int main(int argc, const char* const argv[]) {
 	Isolated::create();
 
-	KernelDBConfig config = KernelDBConfig::Defaults();
-	auto kernels = KernelDBConfig::Kernels();
+
+	// load config and stores
+	KernelDBConfig config = KernelDBConfig::Load();
+	store_map stores = config.stores();
+
+	// mutate stores
+	stores["counts"]->Merge(rocksdb::WriteOptions(), "a", "1");
+	stores["counts"]->Merge(rocksdb::WriteOptions(), "a", "1");
+	stores["counts"]->Merge(rocksdb::WriteOptions(), "a", "1");
 	
-	// TODO: add kernel validation
+	stores["visitors"]->Merge(rocksdb::WriteOptions(), "b", "{\"value\": [1,2,3], \"size\": 5}");
 	
 	
-	// rocksdb options
-	rocksdb::Options options = config.options();
-	options.merge_operator.reset(new KMergeOperator(kernels["counter.js"]));
+	// display stores
+	Isolated isolated;
 	
-	// rocksdb db
-	rocksdb::DB* db;
-	rocksdb::Status status = rocksdb::DB::Open(options, string(LOCALSTATEDIR_PATH)+"/meta", &db);
-	
-	rocksdb::Status s;
-	
-	s = db->Merge(rocksdb::WriteOptions(), "a", "1");
-	
-	//s = db->Merge(rocksdb::WriteOptions(), "a", "[1,2,3]");
-	//s = db->Merge(rocksdb::WriteOptions(), "a", "\"function (v) { return v.concat([v.length+1]); }\"");
-	//s = db->Merge(rocksdb::WriteOptions(), "a", "\"function (v) { return v.map(function (x) { return x*2; }); }\"");
-	
-	rocksdb::Iterator* it = db->NewIterator(rocksdb::ReadOptions());
+	rocksdb::Iterator* it = stores["counts"]->NewIterator(rocksdb::ReadOptions());
 	for (it->SeekToFirst();it->Valid();it->Next()) {
-		cout << it->key().ToString() << " = " << it->value().ToString() << endl;
+		Handle<String> v = Handle<String>::Cast(isolated->jsonParse(it->value().ToString().c_str()));
+		String::Utf8Value utf(v);
+		cout << it->key().ToString() << " = " << *utf << endl;
 	}
 	delete it;
-
 	
-	delete db;
-		
+	
+	it = stores["visitors"]->NewIterator(rocksdb::ReadOptions());
+	for (it->SeekToFirst();it->Valid();it->Next()) {
+		Handle<String> v = Handle<String>::Cast(isolated->jsonParse(it->value().ToString().c_str()));
+		String::Utf8Value utf(v);
+		cout << it->key().ToString() << " = " << *utf << endl;
+	}
+	delete it;
+	
+	
 	Isolated::release();
-	
 	return 0;
 }
